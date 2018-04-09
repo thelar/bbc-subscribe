@@ -4,6 +4,7 @@ jQuery(document).ready(function($){
         var user_email = $(this).find('#subscriber-id').val();
         var tick = $(this).find('#subscribe-check:checked').val();
         var $info = $(this).find('.subscribe-msg');
+        var $input = $(this).find('#subscriber-id');
         $info.removeClass('alert-success alert-danger');
         $info.hide();
 
@@ -20,7 +21,7 @@ jQuery(document).ready(function($){
                 if(response_a.status==='OK'){
                     $info.addClass('alert-success');
                     $info.text('Email subscribed').show();
-                    $(this).find('#subscriber-id').val('');
+                    $input.val('');
                 }else{
                     $info.addClass('alert-danger');
                     $info.text(response_a.error).show();
