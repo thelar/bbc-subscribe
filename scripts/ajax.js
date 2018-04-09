@@ -5,22 +5,16 @@ jQuery(document).ready(function($){
 
 
         if(validateEmail(user_email)){
-            $.ajax({
-                type : "post",
-                dataType : "json",
-                url : the_ajax_script.ajaxurl,
-                data : 'action=bbc_process_subscriber&amp;email='+user_email+'&amp;security='+the_ajax_script.ajax_nonce,
-                success: function(response) {
-                    // You can put any code here to run if the response is successful.
-
-                    // This will allow you to see the response
-                    console.log(response);
-                }
+            //Form is valid so now register
+            var data = {
+                action: 'bbc_process_subscriber',
+                email: user_email,
+                security: the_ajax_script.ajax_nonce
+            };
+            $.post(the_ajax_script.ajaxurl, data, function(response){
+                console.log(response);
             });
         }
-
-
-
         return false;
     });
 });
