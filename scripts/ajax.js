@@ -2,7 +2,7 @@ jQuery(document).ready(function($){
     $('#subscribe-form').submit(function(){
         console.log('subscribe form submitted');
         var user_email = $(this).find('#subscriber-id').val();
-
+        var $info = $(this).find('.subscribe-msg');
 
         if(validateEmail(user_email)){
             //Form is valid so now register
@@ -14,6 +14,8 @@ jQuery(document).ready(function($){
             $.post(the_ajax_script.ajaxurl, data, function(response){
                 console.log(response);
             });
+        }else{
+            $info.text('Invalid email').show();
         }
         return false;
     });
