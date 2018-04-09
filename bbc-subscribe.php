@@ -33,3 +33,16 @@ function bbc_subscribe_script()
     ) );
 }
 add_action('wp_enqueue_scripts', 'bbc_subscribe_script');
+
+function bbc_process_subscriber(){
+    check_ajax_referer( 'my_nonce', 'security' );
+    $email = urldecode($_POST['email']);
+    $response_a = [
+        'email' => $email
+    ];
+    $response = json_encode($response_a);
+    echo $response;
+    die();
+}
+add_action('wp_ajax_bbc_process_subscriber', 'bbc_process_subscriber');
+add_action('wp_ajax_nopriv_bbc_process_subscriber', 'bbc_process_subscriber');
