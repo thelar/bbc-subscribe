@@ -23,3 +23,13 @@ function my_plugin_create_db() {
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
 }
+
+function bbc_subscribe_script()
+{
+    wp_enqueue_script( 'bbc_subscribe_script', plugin_dir_url( __FILE__ ) . 'scripts/ajax.js', ['jquery'], null, true );
+    wp_localize_script( 'bbc_subscribe_script', 'the_ajax_script', array(
+        'ajaxurl' => admin_url( 'admin-ajax.php' ),
+        'ajax_nonce' =>  wp_create_nonce('my_nonce')
+    ) );
+}
+add_action('admin_enqueue_scripts', 'bbc_subscribe_script');
