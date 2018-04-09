@@ -2,6 +2,7 @@ jQuery(document).ready(function($){
     $('#subscribe-form').submit(function(){
         console.log('subscribe form submitted');
         var user_email = $(this).find('#subscriber-id').val();
+        var tick = $(this).find('#subscribe-check:checked').val();
         var $info = $(this).find('.subscribe-msg');
         $info.removeClass('alert-success alert-danger');
         $info.hide();
@@ -12,7 +13,7 @@ jQuery(document).ready(function($){
                 action: 'bbc_process_subscriber',
                 email: user_email,
                 security: the_ajax_script.ajax_nonce,
-                check: $('#subscribe-check:checked').val()
+                check: tick
             };
             $.post(the_ajax_script.ajaxurl, data, function(response){
                 response_a = JSON.parse(response);

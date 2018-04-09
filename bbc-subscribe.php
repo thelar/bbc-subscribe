@@ -36,12 +36,22 @@ add_action('wp_enqueue_scripts', 'bbc_subscribe_script');
 
 function bbc_process_subscriber(){
     $check = check_ajax_referer( 'my_nonce', 'security', false );
+
     if($check){
         $email = urldecode(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
-        $response_a = [
-            'email' => $email,
-            'status' => 'OK'
-        ];
+        $agree = filter_var($_POST['check'], FILTER_SANITIZE_STRING);
+        if($agree==='yes'){
+            $response_a = [
+                'email' => $email,
+                'status' => 'OK'
+            ];
+        }else{
+            $response_a = [
+                'status' => 'fail',
+                'error' => 'Check error'
+            ];
+        }
+
     }else{
         $response_a = [
             'status' => 'fail',
