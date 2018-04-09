@@ -20,6 +20,7 @@ jQuery(document).ready(function($){
                 if(response_a.status==='OK'){
                     $info.addClass('alert-success');
                     $info.text('Email subscribed').show();
+                    $(this).find('#subscriber-id').val('');
                 }else{
                     $info.addClass('alert-danger');
                     $info.text(response_a.error).show();
