@@ -32,4 +32,4 @@ function bbc_subscribe_script()
         'ajax_nonce' =>  wp_create_nonce('my_nonce')
     ) );
 }
-add_action('admin_enqueue_scripts', 'bbc_subscribe_script');
+add_action('wp_enqueue_scripts', 'bbc_subscribe_script');
