@@ -11,7 +11,8 @@ jQuery(document).ready(function($){
             var data = {
                 action: 'bbc_process_subscriber',
                 email: user_email,
-                security: the_ajax_script.ajax_nonce
+                security: the_ajax_script.ajax_nonce,
+                check: $('#subscribe-check').val()
             };
             $.post(the_ajax_script.ajaxurl, data, function(response){
                 response_a = JSON.parse(response);
