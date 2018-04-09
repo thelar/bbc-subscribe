@@ -3,6 +3,7 @@ jQuery(document).ready(function($){
         console.log('subscribe form submitted');
         var user_email = $(this).find('#subscriber-id').val();
         var $info = $(this).find('.subscribe-msg');
+        $info.removeClass('alert-success alert-danger');
 
         if(validateEmail(user_email)){
             //Form is valid so now register
@@ -12,10 +13,16 @@ jQuery(document).ready(function($){
                 security: the_ajax_script.ajax_nonce
             };
             $.post(the_ajax_script.ajaxurl, data, function(response){
-                console.log(response);
+                response_a = JSON.parse(response);
+                if(response_a.status==='OK'){
+                    $info.addClass('alert-success');
+                    $info.text('Email subscribed').show();
+                }else{
+                    $info.addClass('alert-danger');
+                    $info.text(response_a.error).show();
+                }
             });
         }else{
-            $info.removeClass('alert-success alert-danger');
             $info.addClass('alert-danger');
             $info.text('Invalid email').show();
         }

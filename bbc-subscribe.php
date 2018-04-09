@@ -45,7 +45,7 @@ function bbc_process_subscriber(){
     }else{
         $response_a = [
             'status' => 'fail',
-            'error' => 'Security'
+            'error' => 'Security error'
         ];
     }
 
