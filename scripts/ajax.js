@@ -8,8 +8,8 @@ jQuery(document).ready(function($){
             $.ajax({
                 type : "post",
                 dataType : "json",
-                url : ajax_object.ajaxurl,
-                data : 'action=bbc_process_subscriber&amp;email='+user_email+'&amp;security='+ajax_object.ajax_nonce,
+                url : the_ajax_script.ajaxurl,
+                data : 'action=bbc_process_subscriber&amp;email='+user_email+'&amp;security='+the_ajax_script.ajax_nonce,
                 success: function(response) {
                     // You can put any code here to run if the response is successful.
 
