@@ -4,6 +4,7 @@ jQuery(document).ready(function($){
         var user_email = $(this).find('#subscriber-id').val();
         var $info = $(this).find('.subscribe-msg');
         $info.removeClass('alert-success alert-danger');
+        $info.hide();
 
         if(validateEmail(user_email)){
             //Form is valid so now register
