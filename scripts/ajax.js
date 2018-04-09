@@ -15,6 +15,8 @@ jQuery(document).ready(function($){
                 console.log(response);
             });
         }else{
+            $info.removeClass('alert-success alert-danger');
+            $info.addClass('alert-danger');
             $info.text('Invalid email').show();
         }
         return false;
