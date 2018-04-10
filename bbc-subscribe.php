@@ -95,17 +95,22 @@ function bbc_subscribers_setup_menu(){
 
 /** Step 3. */
 function bbc_subscribers_plugin_options() {
-    $array = [
-        ['item 1', 'value 1'],
-        ['item 2', 'value 2'],
-        ['item 3', 'value 3'],
-        ['item 4', 'value 4'],
-        ['item 5', 'value 5']
-    ];
-    array_to_csv_download($array);
-}
+    global $wpdb;
+    $array = [];
 
-function array_to_csv_download($array) {
+    $subscribers = $wpdb->get_results(
+        "
+        SELECT email, time 
+        FROM " . $wpdb->prefix . "subscribers
+        "
+    );
+    foreach($subscribers as $subscriber){
+        $array[] = [
+            $subscriber->email, $subscriber->time
+        ];
+    }
+
+    ob_end_clean();
 
     header("Content-type: text/csv");
     header("Content-Disposition: attachment; filename=export.csv");
@@ -119,4 +124,6 @@ function array_to_csv_download($array) {
     foreach ($array as $line) {
         fputcsv($f, $line);
     }
+    fclose($f);
+    die();
 }
