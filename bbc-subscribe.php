@@ -87,12 +87,10 @@ function bbc_process_subscriber(){
 add_action('wp_ajax_bbc_process_subscriber', 'bbc_process_subscriber');
 add_action('wp_ajax_nopriv_bbc_process_subscriber', 'bbc_process_subscriber');
 
-/** Step 2 (from text above). */
-add_action( 'admin_menu', 'bbc_subscribe_menu' );
+add_action('admin_menu', 'bbc_subscribers_setup_menu');
 
-/** Step 1. */
-function bbc_subscribe_menu() {
-    add_options_page( 'Subscribers Options', 'Email Subscribers', 'manage_options', 'bbc-subscribers', 'bbc_subscribers_plugin_options' );
+function bbc_subscribers_setup_menu(){
+    add_menu_page( 'Email Subscribers', 'Email Subscribers', 'manage_options', 'bbc-email-subscribers', 'bbc_subscribers_plugin_options', 'dashicons-email' );
 }
 
 /** Step 3. */
