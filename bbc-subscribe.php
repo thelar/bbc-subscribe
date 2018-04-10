@@ -105,15 +105,18 @@ function bbc_subscribers_plugin_options() {
     array_to_csv_download($array);
 }
 
-function array_to_csv_download($array, $filename = "export.csv", $delimiter=",") {
-    header('Content-Type: application/csv');
-    header('Content-Disposition: attachement; filename="'.$filename.'";');
+function array_to_csv_download($array) {
+
+    header("Content-type: text/csv");
+    header("Content-Disposition: attachment; filename=export.csv");
+    header("Pragma: no-cache");
+    header("Expires: 0");
 
     // open the "output" stream
     // see http://www.php.net/manual/en/wrappers.php.php#refsect2-wrappers.php-unknown-unknown-unknown-descriptioq
     $f = fopen('php://output', 'w');
 
     foreach ($array as $line) {
-        fputcsv($f, $line, $delimiter);
+        fputcsv($f, $line);
     }
 }
