@@ -95,10 +95,25 @@ function bbc_subscribers_setup_menu(){
 
 /** Step 3. */
 function bbc_subscribers_plugin_options() {
-    if ( !current_user_can( 'manage_options' ) )  {
-        wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+    $array = [
+        ['item 1', 'value 1'],
+        ['item 2', 'value 2'],
+        ['item 3', 'value 3'],
+        ['item 4', 'value 4'],
+        ['item 5', 'value 5']
+    ];
+    array_to_csv_download($array);
+}
+
+function array_to_csv_download($array, $filename = "export.csv", $delimiter=",") {
+    header('Content-Type: application/csv');
+    header('Content-Disposition: attachement; filename="'.$filename.'";');
+
+    // open the "output" stream
+    // see http://www.php.net/manual/en/wrappers.php.php#refsect2-wrappers.php-unknown-unknown-unknown-descriptioq
+    $f = fopen('php://output', 'w');
+
+    foreach ($array as $line) {
+        fputcsv($f, $line, $delimiter);
     }
-    echo '<div class="wrap">';
-    echo '<p>Here is where the form would go if I actually had options.</p>';
-    echo '</div>';
 }
