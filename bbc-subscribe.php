@@ -86,3 +86,21 @@ function bbc_process_subscriber(){
 }
 add_action('wp_ajax_bbc_process_subscriber', 'bbc_process_subscriber');
 add_action('wp_ajax_nopriv_bbc_process_subscriber', 'bbc_process_subscriber');
+
+/** Step 2 (from text above). */
+add_action( 'admin_menu', 'bbc_subscribe_menu' );
+
+/** Step 1. */
+function bbc_subscribe_menu() {
+    add_options_page( 'Subscribers Options', 'Email Subscribers', 'manage_options', 'bbc-subscribers', 'bbc_subscribers_plugin_options' );
+}
+
+/** Step 3. */
+function bbc_subscribers_plugin_options() {
+    if ( !current_user_can( 'manage_options' ) )  {
+        wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+    }
+    echo '<div class="wrap">';
+    echo '<p>Here is where the form would go if I actually had options.</p>';
+    echo '</div>';
+}
