@@ -35,20 +35,41 @@ function bbc_subscribe_script()
 add_action('wp_enqueue_scripts', 'bbc_subscribe_script');
 
 function bbc_process_subscriber(){
+    global $wpdb;
+
     $check = check_ajax_referer( 'my_nonce', 'security', false );
 
     if($check){
         $email = urldecode(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
         $agree = filter_var($_POST['check'], FILTER_SANITIZE_STRING);
         if($agree==='yes'){
-            $response_a = [
-                'email' => $email,
-                'status' => 'OK'
-            ];
+            //Add subscriber to database here
+            $insert = $wpdb->insert(
+                $wpdb->prefix . 'subscribers',
+                array(
+                    'time' => current_time('mysql', 1),
+                    'email' => $email
+                )
+            );
+
+            if($insert!==false){
+                $response_a = [
+                    'insert' => $insert,
+                    'email' => $email,
+                    'status' => 'OK'
+                ];
+            }else{
+                $response_a = [
+                    'status' => 'fail',
+                    'error' => 'Subscriber could not added to database'
+                ];
+            }
+
+
         }else{
             $response_a = [
                 'status' => 'fail',
-                'error' => 'Check error'
+                'error' => 'You must agree to the Terms and Privacy'
             ];
         }
 
